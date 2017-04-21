@@ -28,7 +28,7 @@ class Switch extends React.Component {
     }
 
     if (nextProps.value !== this.state.value) {
-      this.setState({ value: nextProps.value })
+      this.setState({ value: nextProps.value });
     }
   }
 
@@ -163,7 +163,11 @@ class Switch extends React.Component {
         onMouseLeave={this.onMouseLeave}>
 
         <Label active={this.state.value} labels={this.props.labels} ref="label" />
-        <span style={this.circleStyles()} className="react-flexible-switch-circle" ref="circle" />
+        <span style={this.circleStyles()} className="react-flexible-switch-circle" ref="circle">
+          {
+            this.props.circleRender()
+          }
+        </span>
 
         <button
           disabled={this.props.locked}
@@ -221,7 +225,8 @@ Switch.propTypes = {
     on: React.PropTypes.string,
     off: React.PropTypes.string
   }),
-
+  circleRender: React.PropTypes.func,
+  
   locked: React.PropTypes.bool,
 
   onChange: React.PropTypes.func,
@@ -232,6 +237,7 @@ Switch.propTypes = {
 };
 
 Switch.defaultProps = {
+  circleRender: (function() {}),
   onChange: (function() {}),
   circleStyles: defaultCircleStyles,
   switchStyles: defaultSwitchStyles,
